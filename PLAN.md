@@ -34,7 +34,7 @@ digits — 60,000 for training, 10,000 for testing.
   ├── data/                # MNIST downloads here (git-ignored)
   └── models/              # saved model weights (git-ignored)
   ```
-- [ ] Add `pytest` to the venv and `requirements.txt`
+- [x] Add `pytest` to the venv and `requirements.txt`
 
 ## Phase 1 — Load and explore the data
 
