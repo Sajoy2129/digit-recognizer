@@ -3,7 +3,13 @@
 import pytest
 import torch
 
-from src.data import VAL_SIZE, count_labels, get_dataloaders, load_datasets
+from src.data import (
+    VAL_SIZE,
+    count_labels,
+    get_dataloaders,
+    get_raw_image,
+    load_datasets,
+)
 
 
 # scope="module" loads the data once and shares it across all tests here.
@@ -55,3 +61,11 @@ def test_count_labels_sums_to_dataset_size(datasets):
     counts = count_labels(train)
     assert len(counts) == 10
     assert sum(counts) == len(train)
+
+
+def test_raw_image_is_28x28_integers(datasets):
+    train, _, _ = datasets
+    raw = get_raw_image(train, 0)
+    assert raw.shape == (28, 28)
+    assert raw.dtype == torch.uint8
+    assert 0 <= raw.min() and raw.max() <= 255

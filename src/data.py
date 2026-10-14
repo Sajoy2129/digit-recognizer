@@ -74,6 +74,16 @@ def get_labels(dataset: Dataset) -> torch.Tensor:
     return dataset.targets
 
 
+def get_raw_image(dataset: Dataset, index: int) -> torch.Tensor:
+    """Return the original 28x28 image as integers 0-255 (no normalization).
+
+    0 is a black background pixel and 255 is a fully white ink pixel.
+    """
+    if isinstance(dataset, Subset):
+        return get_raw_image(dataset.dataset, dataset.indices[index])
+    return dataset.data[index]
+
+
 def count_labels(dataset: Dataset) -> list[int]:
     """Return how many examples there are of each digit 0-9."""
     return torch.bincount(get_labels(dataset), minlength=10).tolist()
