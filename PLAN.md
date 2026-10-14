@@ -29,25 +29,27 @@ digits — 60,000 for training, 10,000 for testing.
   │   ├── baseline.py      # scikit-learn model
   │   ├── models.py        # MLP and CNN classes
   │   ├── train.py         # training + evaluation loop
-  │   └── evaluate.py      # accuracy, confusion matrix, plots
+  │   ├── evaluate.py      # accuracy, confusion matrix, plots
+  │   └── explore.py       # sample grid + class balance plots
   ├── tests/               # pytest tests
   ├── data/                # MNIST downloads here (git-ignored)
+  ├── outputs/             # generated plots (git-ignored)
   └── models/              # saved model weights (git-ignored)
   ```
 - [x] Add `pytest` to the venv and `requirements.txt`
 
 ## Phase 1 — Load and explore the data
 
-- [ ] `src/data.py`: download MNIST with `torchvision.datasets.MNIST`
-- [ ] Convert images to tensors and normalize pixel values
+- [x] `src/data.py`: download MNIST with `torchvision.datasets.MNIST`
+- [x] Convert images to tensors and normalize pixel values
       (mean 0.1307, std 0.3081, which are standard for MNIST)
-- [ ] Split the 60k training set into **train (55k) / validation (5k)**
+- [x] Split the 60k training set into **train (55k) / validation (5k)**
   - *Why?* We tune using validation and only look at the test set at the very end
-- [ ] Build `DataLoader`s (batches of 64, shuffle training data)
-- [ ] Plot a grid of sample images with their labels
-- [ ] Check the class balance (how many of each digit?)
-- [ ] Test: a batch has shape `(64, 1, 28, 28)` and labels are in 0–9
-- [ ] Commit: "Add MNIST data loading and exploration"
+- [x] Build `DataLoader`s (batches of 64, shuffle training data)
+- [x] Plot a grid of sample images with their labels
+- [x] Check the class balance (how many of each digit?)
+- [x] Test: a batch has shape `(64, 1, 28, 28)` and labels are in 0–9
+- [x] Commit: "Add MNIST data loading and exploration"
 
 ## Phase 2 — scikit-learn baseline
 
