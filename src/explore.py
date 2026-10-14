@@ -8,6 +8,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import torch
+from matplotlib.figure import Figure
 from torch.utils.data import Dataset
 
 from src.data import count_labels, get_raw_image, load_datasets
@@ -27,8 +28,8 @@ def format_image(image: torch.Tensor) -> str:
     return "\n".join(lines)
 
 
-def plot_sample_grid(dataset: Dataset, path: Path, rows: int = 4, cols: int = 5) -> None:
-    """Save a grid of the first rows*cols images with their labels."""
+def plot_sample_grid(dataset: Dataset, rows: int = 4, cols: int = 5) -> Figure:
+    """Plot a grid of the first rows*cols images with their labels."""
     fig, axes = plt.subplots(rows, cols, figsize=(cols * 1.2, rows * 1.4))
     for i, ax in enumerate(axes.flat):
         image, label = dataset[i]
@@ -37,12 +38,11 @@ def plot_sample_grid(dataset: Dataset, path: Path, rows: int = 4, cols: int = 5)
         ax.axis("off")
     fig.suptitle("MNIST training samples")
     fig.tight_layout()
-    fig.savefig(path)
-    plt.close(fig)
+    return fig
 
 
-def plot_class_balance(counts: list[int], path: Path) -> None:
-    """Save a bar chart of how many examples there are per digit."""
+def plot_class_balance(counts: list[int]) -> Figure:
+    """Plot a bar chart of how many examples there are per digit."""
     fig, ax = plt.subplots(figsize=(7, 4))
     ax.bar(range(10), counts, color="steelblue")
     ax.set_xticks(range(10))
@@ -50,6 +50,11 @@ def plot_class_balance(counts: list[int], path: Path) -> None:
     ax.set_ylabel("Number of training images")
     ax.set_title("Class balance (training split)")
     fig.tight_layout()
+    return fig
+
+
+def save_figure(fig: Figure, path: Path) -> None:
+    """Save a figure to disk and free its memory."""
     fig.savefig(path)
     plt.close(fig)
 
@@ -73,8 +78,8 @@ def main() -> None:
     print(f"\nSame image after normalization: values from "
           f"{normalized.min():.2f} to {normalized.max():.2f}")
 
-    plot_sample_grid(train, OUTPUT_DIR / "sample_digits.png")
-    plot_class_balance(counts, OUTPUT_DIR / "class_balance.png")
+    save_figure(plot_sample_grid(train), OUTPUT_DIR / "sample_digits.png")
+    save_figure(plot_class_balance(counts), OUTPUT_DIR / "class_balance.png")
     print(f"\nPlots saved to {OUTPUT_DIR}/")
 
 

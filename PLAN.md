@@ -34,6 +34,7 @@ digits — 60,000 for training, 10,000 for testing.
   ├── tests/               # pytest tests
   ├── data/                # MNIST downloads here (git-ignored)
   ├── outputs/             # generated plots (git-ignored)
+  ├── explore.ipynb        # interactive tour of the data
   └── models/              # saved model weights (git-ignored)
   ```
 - [x] Add `pytest` to the venv and `requirements.txt`
