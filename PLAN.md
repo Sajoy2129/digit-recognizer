@@ -19,9 +19,9 @@ digits — 60,000 for training, 10,000 for testing.
 
 - [x] Create a virtual environment (`python3 -m venv .venv`)
 - [x] Install dependencies (torch, torchvision, scikit-learn, matplotlib)
-- [ ] Add a `.gitignore` (ignore `.venv/`, `data/`, `__pycache__/`, `*.pt`)
-- [ ] Commit `requirements.txt`, `.gitignore`, and `PLAN.md`
-- [ ] Create the folder layout:
+- [x] Add a `.gitignore` (ignore `.venv/`, `data/`, `__pycache__/`, `*.pt`)
+- [x] Commit `requirements.txt`, `.gitignore`, and `PLAN.md`
+- [x] Create the folder layout:
   ```
   digit-recognizer/
   ├── src/
