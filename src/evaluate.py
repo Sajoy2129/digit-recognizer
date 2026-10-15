@@ -21,8 +21,13 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> floa
     return correct / total
 
 
-def plot_history(history: dict[str, list[float]], title: str = "") -> Figure:
-    """Plot training loss and validation accuracy for each epoch."""
+def plot_history(
+    history: dict[str, list[float]],
+    title: str = "",
+    eval_name: str = "val",
+) -> Figure:
+    """Plot training loss and evaluation accuracy for each epoch."""
+    eval_label = "Test" if eval_name == "test" else "Validation"
     epochs = range(1, len(history["train_loss"]) + 1)
     fig, (loss_ax, acc_ax) = plt.subplots(1, 2, figsize=(10, 4))
 
@@ -31,10 +36,10 @@ def plot_history(history: dict[str, list[float]], title: str = "") -> Figure:
     loss_ax.set_ylabel("Training loss")
     loss_ax.set_title("Training loss (lower is better)")
 
-    acc_ax.plot(epochs, [acc * 100 for acc in history["val_acc"]], marker="o")
+    acc_ax.plot(epochs, [acc * 100 for acc in history["eval_acc"]], marker="o")
     acc_ax.set_xlabel("Epoch")
-    acc_ax.set_ylabel("Validation accuracy (%)")
-    acc_ax.set_title("Validation accuracy (higher is better)")
+    acc_ax.set_ylabel(f"{eval_label} accuracy (%)")
+    acc_ax.set_title(f"{eval_label} accuracy (higher is better)")
 
     for ax in (loss_ax, acc_ax):
         ax.set_xticks(list(epochs))
