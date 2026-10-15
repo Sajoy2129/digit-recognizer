@@ -65,21 +65,21 @@ digits — 60,000 for training, 10,000 for testing.
 
 ## Phase 3 — Simple neural network (MLP) in PyTorch
 
-- [ ] `src/models.py`: define `MLP(nn.Module)`
+- [x] `src/models.py`: define `MLP(nn.Module)`
   - `Flatten → Linear(784, 128) → ReLU → Linear(128, 10)`
-- [ ] `src/train.py`: write a reusable training loop
+- [x] `src/train.py`: write a reusable training loop
   - forward pass → loss (`CrossEntropyLoss`) → `backward()` → optimizer step
   - Optimizer: `Adam`, learning rate 1e-3
   - Use the GPU if available (`mps` on Apple Silicon, otherwise `cpu`)
-- [ ] Write an `evaluate()` function that computes accuracy with `torch.no_grad()`
-- [ ] Train for about 5 epochs and print the loss and validation accuracy each epoch
-- [ ] Plot training loss and validation accuracy curves
-- [ ] Set a random seed (`torch.manual_seed`) so results are reproducible
-- [ ] Target: **about 97–98%** validation accuracy
-- [ ] Save weights with `torch.save(model.state_dict(), "models/mlp.pt")`
-- [ ] Test: the model's output shape is `(batch, 10)` for a dummy input
-- [ ] Test: one training step lowers the loss on a tiny batch (sanity check)
-- [ ] Commit: "Add MLP model and training loop"
+- [x] Write an `evaluate()` function that computes accuracy with `torch.no_grad()`
+- [x] Train for about 5 epochs and print the loss and validation accuracy each epoch
+- [x] Plot training loss and validation accuracy curves
+- [x] Set a random seed (`torch.manual_seed`) so results are reproducible
+- [x] Target: **about 97–98%** validation accuracy
+- [x] Save weights with `torch.save(model.state_dict(), "models/mlp.pt")`
+- [x] Test: the model's output shape is `(batch, 10)` for a dummy input
+- [x] Test: one training step lowers the loss on a tiny batch (sanity check)
+- [x] Commit: "Add MLP model and training loop"
 
 ## Phase 4 — Convolutional neural network (CNN)
 
@@ -124,7 +124,7 @@ digits — 60,000 for training, 10,000 for testing.
 |---------------------------|--------------|---------------|------------|-------|
 | Logistic regression       | 89.5% / 91.9% |              | 0.7s / 4.1s | 10k / 55k train images |
 | Random forest (bonus)     | 94.2% / 96.7% |              | 0.3s / 2.3s | 10k / 55k train images |
-| MLP (PyTorch)             |              |               |            |       |
+| MLP (PyTorch)             | 97.1%        |               | 18.4s (mps) | 5 epochs, Adam lr 1e-3 |
 | CNN (PyTorch)             |              |               |            |       |
 
 ## How to run (fill in as we build)
