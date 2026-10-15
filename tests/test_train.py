@@ -7,7 +7,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 
-from src.evaluate import evaluate
+from src.evaluate import evaluate, predict_all
 from src.models import MLP
 from src.train import get_device, train_one_epoch
 
@@ -52,6 +52,12 @@ def test_evaluate_is_1_for_a_perfect_model():
     images[:, 0, 0, 0] = labels.float()
     loader = DataLoader(TensorDataset(images, labels), batch_size=5)
     assert evaluate(AlwaysCorrect(), loader, CPU) == 1.0
+
+
+def test_predict_all_returns_one_prediction_per_example():
+    predictions, labels = predict_all(MLP(), make_fake_loader(size=32), CPU)
+    assert predictions.shape == labels.shape == (32,)
+    assert predictions.min() >= 0 and predictions.max() <= 9
 
 
 def test_get_device_returns_a_device():

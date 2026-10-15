@@ -102,12 +102,12 @@ digits — 60,000 for training, 10,000 for testing.
 
 ## Phase 5 — Evaluate and compare
 
-- [ ] Evaluate **all three models on the test set**, once, at the end
-- [ ] Fill in the results table
-- [ ] Plot a confusion matrix for the CNN (which digits get mixed up?)
-- [ ] Show 10–20 misclassified images and look for patterns
-- [ ] Write a short summary of what you learned in `README.md`
-- [ ] Commit: "Add evaluation and results"
+- [x] Evaluate **all three models on the test set**, once, at the end
+- [x] Fill in the results table
+- [x] Plot a confusion matrix for the CNN (which digits get mixed up?)
+- [x] Show 10–20 misclassified images and look for patterns
+- [x] Write a short summary of what you learned in `README.md`
+- [x] Commit: "Add evaluation and results"
 
 ## Phase 6 — Stretch goals (optional)
 
@@ -122,11 +122,11 @@ digits — 60,000 for training, 10,000 for testing.
 
 | Model                     | Val accuracy | Test accuracy | Train time | Notes |
 |---------------------------|--------------|---------------|------------|-------|
-| Logistic regression       | 89.5% / 91.9% |              | 0.7s / 4.1s | 10k / 55k train images |
-| Random forest (bonus)     | 94.2% / 96.7% |              | 0.3s / 2.3s | 10k / 55k train images |
-| MLP (PyTorch)             | 97.1%        |               | 18.4s (mps) | 5 epochs, Adam lr 1e-3 |
-| MLP, 2 hidden layers      | 97.9%        |               | 17.9s (mps) | 256→128, 235k params |
-| CNN (PyTorch)             | 98.8%        |               | 33.1s (mps) | 5 epochs, 225k params |
+| Logistic regression       | 89.5% / 91.9% | 92.5% (55k)  | 0.7s / 4.1s | 10k / 55k train images |
+| Random forest (bonus)     | 94.2% / 96.7% | 96.8% (55k)  | 0.3s / 2.3s | 10k / 55k train images |
+| MLP (PyTorch)             | 97.1%        | 97.7%         | 18.4s (mps) | 5 epochs, Adam lr 1e-3 |
+| MLP, 2 hidden layers      | 97.9%        | 97.9%         | 17.9s (mps) | 256→128, 235k params |
+| CNN (PyTorch)             | 98.8%        | **99.0%**     | 33.1s (mps) | 5 epochs, 225k params |
 
 ## How to run (fill in as we build)
 
@@ -137,5 +137,6 @@ python -m src.baseline --train-size 55000  # full training split
 python -m src.train --model mlp
 python -m src.train --model mlp2
 python -m src.train --model cnn
+python -m src.report                       # final test-set evaluation
 pytest
 ```
