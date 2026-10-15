@@ -28,3 +28,35 @@ class MLP(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.layers(x)
+
+
+class CNN(nn.Module):
+    """A convolutional neural network: two conv blocks, then a classifier.
+
+    Shapes for one image (channels x height x width):
+        1x28x28 -> conv -> 32x26x26 -> pool -> 32x13x13
+                -> conv -> 64x11x11 -> pool -> 64x5x5 -> 1600 numbers
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+        # Feature extractor: learns local patterns (edges, then curves/loops).
+        self.features = nn.Sequential(
+            nn.Conv2d(1, 32, kernel_size=3),   # 32 learned 3x3 filters
+            nn.ReLU(),
+            nn.MaxPool2d(2),                   # keep the strongest of each 2x2
+            nn.Conv2d(32, 64, kernel_size=3),  # 64 filters combining those
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+        )
+        # Classifier: turns the detected patterns into 10 digit scores.
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(64 * 5 * 5, 128),
+            nn.ReLU(),
+            nn.Dropout(0.25),  # randomly silence 25% of neurons while training
+            nn.Linear(128, 10),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.classifier(self.features(x))

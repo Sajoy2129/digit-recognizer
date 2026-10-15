@@ -17,7 +17,7 @@ from torch.utils.data import DataLoader
 from src.data import SEED, get_dataloaders
 from src.evaluate import evaluate, plot_history
 from src.explore import OUTPUT_DIR, save_figure
-from src.models import MLP
+from src.models import CNN, MLP
 
 MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
 
@@ -26,6 +26,7 @@ MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
 MODEL_BUILDERS = {
     "mlp": MLP,                                     # 1 hidden layer (128)
     "mlp2": partial(MLP, hidden_sizes=(256, 128)),  # 2 hidden layers
+    "cnn": CNN,
 }
 
 

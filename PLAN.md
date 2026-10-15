@@ -87,18 +87,18 @@ digits — 60,000 for training, 10,000 for testing.
 > are neighbors. A CNN slides small filters across the image to find
 > local patterns like edges and curves, and that works much better for images.
 
-- [ ] `src/models.py`: define `CNN(nn.Module)`
+- [x] `src/models.py`: define `CNN(nn.Module)`
   - `Conv2d(1, 32, 3) → ReLU → MaxPool2d(2)`
   - `Conv2d(32, 64, 3) → ReLU → MaxPool2d(2)`
   - `Flatten → Linear(64*5*5, 128) → ReLU → Dropout(0.25) → Linear(128, 10)`
-- [ ] Reuse the same `train.py` loop (no changes needed, which is the benefit of
+- [x] Reuse the same `train.py` loop (no changes needed, which is the benefit of
       keeping functions small and general)
-- [ ] Train for about 5–10 epochs
-- [ ] Target: **about 99%** validation accuracy
+- [x] Train for about 5–10 epochs
+- [x] Target: **about 99%** validation accuracy
 - [ ] Optional: add data augmentation (small random rotations/shifts)
-- [ ] Save weights to `models/cnn.pt`
-- [ ] Test: the CNN's output shape is `(batch, 10)`
-- [ ] Commit: "Add CNN model"
+- [x] Save weights to `models/cnn.pt`
+- [x] Test: the CNN's output shape is `(batch, 10)`
+- [x] Commit: "Add CNN model"
 
 ## Phase 5 — Evaluate and compare
 
@@ -125,7 +125,8 @@ digits — 60,000 for training, 10,000 for testing.
 | Logistic regression       | 89.5% / 91.9% |              | 0.7s / 4.1s | 10k / 55k train images |
 | Random forest (bonus)     | 94.2% / 96.7% |              | 0.3s / 2.3s | 10k / 55k train images |
 | MLP (PyTorch)             | 97.1%        |               | 18.4s (mps) | 5 epochs, Adam lr 1e-3 |
-| CNN (PyTorch)             |              |               |            |       |
+| MLP, 2 hidden layers      | 97.9%        |               | 17.9s (mps) | 256→128, 235k params |
+| CNN (PyTorch)             | 98.8%        |               | 33.1s (mps) | 5 epochs, 225k params |
 
 ## How to run (fill in as we build)
 
@@ -134,6 +135,7 @@ source .venv/bin/activate
 python -m src.baseline                     # 10k-image subset (fast)
 python -m src.baseline --train-size 55000  # full training split
 python -m src.train --model mlp
+python -m src.train --model mlp2
 python -m src.train --model cnn
 pytest
 ```

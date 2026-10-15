@@ -2,7 +2,17 @@
 
 import torch
 
-from src.models import MLP
+from src.models import CNN, MLP
+
+
+def test_cnn_output_shape():
+    model = CNN()
+    assert model(torch.randn(8, 1, 28, 28)).shape == (8, 10)
+
+
+def test_cnn_features_shrink_to_64x5x5():
+    features = CNN().features(torch.randn(2, 1, 28, 28))
+    assert features.shape == (2, 64, 5, 5)
 
 
 def test_mlp_output_shape():
