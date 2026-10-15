@@ -54,14 +54,14 @@ digits — 60,000 for training, 10,000 for testing.
 
 ## Phase 2 — scikit-learn baseline
 
-- [ ] `src/baseline.py`: flatten each 28×28 image into a 784-number vector
-- [ ] Scale pixels to 0–1
-- [ ] Train `LogisticRegression` (start with a 10k-sample subset for speed)
-- [ ] Measure validation accuracy (**expect about 92%**)
-- [ ] Optional: try `RandomForestClassifier` (about 97%) and compare
-- [ ] Record results in the results table below
-- [ ] Test: the model's predictions have the right shape and are in 0–9
-- [ ] Commit: "Add scikit-learn baseline"
+- [x] `src/baseline.py`: flatten each 28×28 image into a 784-number vector
+- [x] Scale pixels to 0–1
+- [x] Train `LogisticRegression` (start with a 10k-sample subset for speed)
+- [x] Measure validation accuracy (**expect about 92%**)
+- [x] Optional: try `RandomForestClassifier` (about 97%) and compare
+- [x] Record results in the results table below
+- [x] Test: the model's predictions have the right shape and are in 0–9
+- [x] Commit: "Add scikit-learn baseline"
 
 ## Phase 3 — Simple neural network (MLP) in PyTorch
 
@@ -122,7 +122,8 @@ digits — 60,000 for training, 10,000 for testing.
 
 | Model                     | Val accuracy | Test accuracy | Train time | Notes |
 |---------------------------|--------------|---------------|------------|-------|
-| Logistic regression       |              |               |            |       |
+| Logistic regression       | 89.5% / 91.9% |              | 0.7s / 4.1s | 10k / 55k train images |
+| Random forest (bonus)     | 94.2% / 96.7% |              | 0.3s / 2.3s | 10k / 55k train images |
 | MLP (PyTorch)             |              |               |            |       |
 | CNN (PyTorch)             |              |               |            |       |
 
@@ -130,7 +131,8 @@ digits — 60,000 for training, 10,000 for testing.
 
 ```bash
 source .venv/bin/activate
-python -m src.baseline
+python -m src.baseline                     # 10k-image subset (fast)
+python -m src.baseline --train-size 55000  # full training split
 python -m src.train --model mlp
 python -m src.train --model cnn
 pytest

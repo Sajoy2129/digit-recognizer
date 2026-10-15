@@ -84,6 +84,16 @@ def get_raw_image(dataset: Dataset, index: int) -> torch.Tensor:
     return dataset.data[index]
 
 
+def get_raw_images(dataset: Dataset) -> torch.Tensor:
+    """Return all images of an MNIST dataset (or a Subset) as uint8, (N, 28, 28).
+
+    Like get_labels, this skips the per-image transform, so it is fast.
+    """
+    if isinstance(dataset, Subset):
+        return get_raw_images(dataset.dataset)[dataset.indices]
+    return dataset.data
+
+
 def count_labels(dataset: Dataset) -> list[int]:
     """Return how many examples there are of each digit 0-9."""
     return torch.bincount(get_labels(dataset), minlength=10).tolist()
